@@ -31,7 +31,7 @@ export function AAPLStockChartView() {
             params: {
               function: "TIME_SERIES_MONTHLY",
               symbol: "AAPL",
-              apikey: process.env.REACT_APP_ALPHAVANTAGE_API_KEY,
+              apikey: import.meta.env.VITE_ALPHAVANTAGE_API_KEY,
             },
           }
         );
