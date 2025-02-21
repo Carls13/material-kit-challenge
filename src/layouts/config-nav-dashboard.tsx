@@ -43,4 +43,9 @@ export const navData = [
     path: '/404',
     icon: icon('ic-disabled'),
   },
+  {
+    title: 'AAPL Chart',
+    path: '/aapl-chart',
+    icon: icon('ic-analytics'),
+  },
 ];
