@@ -1,6 +1,7 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
@@ -23,6 +24,8 @@ export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProp
 
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
+  const { i18n } = useTranslation();
+
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
   }, []);
@@ -34,9 +37,10 @@ export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProp
   const handleChangeLang = useCallback(
     (newLang: string) => {
       setLocale(newLang);
+      i18n.changeLanguage(newLang);
       handleClosePopover();
     },
-    [handleClosePopover]
+    [handleClosePopover, i18n]
   );
 
   const currentLang = data.find((lang) => lang.value === locale);

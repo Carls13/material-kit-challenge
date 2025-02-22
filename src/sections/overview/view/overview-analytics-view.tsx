@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -17,10 +19,12 @@ import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
+  const { i18n } = useTranslation();
+  
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        Hi, Welcome back 👋
+        {i18n.t("welcome.message")} 👋
       </Typography>
 
       <Grid container spacing={3}>

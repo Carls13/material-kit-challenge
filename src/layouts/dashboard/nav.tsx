@@ -1,6 +1,7 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -116,6 +117,8 @@ export function NavMobile({
 export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
   const pathname = usePathname();
 
+  const { i18n } = useTranslation();
+
   return (
     <>
       <Logo />
@@ -128,6 +131,8 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
         <Box component="nav" display="flex" flex="1 1 auto" flexDirection="column" sx={sx}>
           <Box component="ul" gap={0.5} display="flex" flexDirection="column">
             {data.map((item) => {
+              const title = item.title.toLowerCase().split(' ').join('-');
+              const internationalizedTitle = i18n.t(`sidebar.${title}`);
               const isActived = item.path === pathname;
 
               return (
@@ -161,7 +166,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
                     </Box>
 
                     <Box component="span" flexGrow={1}>
-                      {item.title}
+                      {internationalizedTitle}
                     </Box>
 
                     {item.info && item.info}
