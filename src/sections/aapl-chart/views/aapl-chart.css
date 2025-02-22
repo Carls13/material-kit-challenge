@@ -1,0 +1,14 @@
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.chart-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.chart-container .chart {
+    width: 1000px;
+}

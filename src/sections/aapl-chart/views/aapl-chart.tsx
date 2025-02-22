@@ -1,6 +1,9 @@
+import './aapl-chart.css';
+
 import axios from "axios";
 import Chart from "react-apexcharts";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Box, Stack, Button, CircularProgress } from "@mui/material";
 
@@ -21,6 +24,8 @@ export function AAPLStockChartView() {
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [resolution, setResolution] = useState<string>("12M");
+
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const fetchStockData = async () => {
@@ -65,6 +70,21 @@ export function AAPLStockChartView() {
     xaxis: {
       categories,
     },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            height: 300, // 🔹 Altura ajustada en pantallas pequeñas
+          },
+          xaxis: {
+            labels: {
+              rotate: -45, // 🔹 Evita superposición de etiquetas
+            },
+          },
+        },
+      },
+    ],
   };
 
   const series = [
@@ -75,8 +95,8 @@ export function AAPLStockChartView() {
   ];
 
   return (
-    <div>
-      <h2>AAPL Stock Price</h2>
+    <div className="px-4">
+      <h2>{i18n.t("stock.aaplPrice")}</h2>
       <Stack direction="row" spacing={1} mb={2}>
         {Object.keys(resolutions).map((key) => (
           <Button
@@ -88,13 +108,15 @@ export function AAPLStockChartView() {
           </Button>
         ))}
       </Stack>
-      {loading ? (
-        <Box display="flex" justifyContent="center" alignItems="center" height={350}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Chart options={options} series={series} type="bar" height={350} />
-      )}
+      <div className="chart-container">
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height={350}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Chart className="chart" options={options} series={series} type="bar" height={350} />
+        )}
+      </div>
     </div>
   );
 };
